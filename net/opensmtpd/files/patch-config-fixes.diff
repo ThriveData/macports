@@ -1,0 +1,16 @@
+--- smtpd/smtpd.conf	2018-12-17 05:58:15.000000000 -0700
++++ /tmp/smtpd.conf.diff	2018-12-22 00:59:18.000000000 -0700
+@@ -3,11 +3,11 @@
+ # This is the smtpd server system-wide configuration file.
+ # See smtpd.conf(5) for more information.
+ 
+-table aliases file:/etc/mail/aliases
++table aliases file:/opt/local/etc/opensmtpd/aliases
+ 
+ # To accept external mail, replace with: listen on all
+ #
+-listen on localhost
++listen on 0.0.0.0
+ 
+ action "local" mbox alias <aliases>
+ action "relay" relay

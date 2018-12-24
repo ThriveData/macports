@@ -1,0 +1,50 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem		    	1.0
+
+name			    	opensmtpd
+version			    	6.4.1p2
+license					bsd
+categories		    	net
+platforms		    	darwin
+description		    	OpenSMTPD mailserver
+long_description	    OpenSMTPD is a FREE implementation of the server-side SMTP protocol as defined by RFC 5321, with some additional standard extensions. It allows ordinary machines to exchange emails with other systems speaking the SMTP protocol.
+homepage				https://www.opensmtpd.org
+
+maintainers	    		openmaintainer \
+			    		thrivedata.it:ian
+
+master_sites			https://www.opensmtpd.org/archives/
+
+checksums	    		rmd160	6d41efd3f2fbbd1068a6c025bec4dd84370791a2\
+			    		sha256	b69b84934bcc4893ca334504411cd47f86ea04ac5e971a5746d44c473ac5f732 \
+                        size	718862
+					
+depends_build           port:autoconf \
+    					port:automake \
+    					port:bison \
+    					port:libtool
+
+depends_lib			    port:libasr \
+    					port:libevent \
+    					port:libressl
+
+patchfiles              patch-config-fixes.diff
+	
+set sysconfdir          ${prefix}/etc/${name}
+
+configure.args          --with-libevent=${prefix} \
+                        --with-libasr=${prefix} \
+                        --sysconfdir=${sysconfdir} \
+                        --with-user-smtpd=nobody \
+                        --with-user-queue=nobody \
+                        --with-group-queue=daemon
+
+post-destroot {
+	file mkdir ${sysconfdir}
+    touch ${sysconfdir}/aliases
+}
+
+startupitem.create	    yes
+startupitem.name	    opensmtpd
+startupitem.executable	${prefix}/sbin/smtpd -d

@@ -1,0 +1,25 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+
+PortSystem			1.0
+
+name				libasr
+version				1.0.2
+license             bsd
+categories			net devel
+platforms			darwin
+description			Asynchronous DNS resolver library
+long_description	libasr is a free, simple and portable asynchronous resolver library. It allows to run dns queries and perform hostname resolutions in a fully asynchronous fashion. The implementation is thread-less, fork-less, and does not make use of signals or other "tricks" that might get in the developer's way.
+homepage			https://www.opensmtpd.org
+
+maintainers			openmaintainer \
+					thrivedata.it:ian
+
+master_sites			https://www.opensmtpd.org/archives/
+
+checksums			rmd160	515da534a66eab6d1bbd2629c0b0991456869492 \
+					sha256	a6f5d1c6306938156da3427525572b9b16c1e6be6c69845d390bb63f41a58b34 \
+					size	406428
+
+depends_build		port:autoconf \
+					port:automake \
+					port:libtool
